@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha de proyecto — Presupuesto</title>
+<style>
+  :root{
+    --ink:#101013;
+    --ink-2:#17171b;
+    --paper:#f3ead7;
+    --paper-dim:#e5dcc7;
+    --red:#bb3b28;
+    --gold:#caa237;
+    --line:#3a3a40;
+    --muted:#9b958a;
+    --good:#7fae6f;
+    --warn:#c97a3a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding-bottom:40px;
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:0 16px;}
+
+  .mono{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .display{
+    font-family:-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-weight:800;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+  }
+
+  /* ---- Ticket header ---- */
+  .ticket-head{
+    margin-top:18px;
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:6px 6px 0 0;
+    padding:20px 20px 16px;
+    position:relative;
+    border-bottom:2px dashed var(--ink);
+  }
+  .ticket-head::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-12px;
+    height:24px;
+    background:
+      radial-gradient(circle 12px at 0 0, transparent 12px, var(--paper) 12.5px) -12px -12px / 24px 24px repeat-x;
+  }
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--red);
+    margin:0 0 6px;
+    font-weight:700;
+  }
+  .ticket-head h1{
+    font-size:30px;
+    margin:0 0 6px;
+    line-height:1.05;
+  }
+  .ticket-head p{
+    font-size:13px;
+    line-height:1.5;
+    margin:0;
+    color:#5c5648;
+  }
+
+  /* ---- Body card ---- */
+  .ticket-body{
+    background:var(--ink-2);
+    border-radius:0 0 6px 6px;
+    padding:28px 20px 20px;
+    border:1px solid var(--line);
+    border-top:none;
+  }
+
+  /* ---- Progress ---- */
+  .progress{
+    display:flex; align-items:center; gap:6px;
+    margin-bottom:22px;
+  }
+  .progress .dot{
+    flex:1; height:4px; border-radius:2px;
+    background:var(--line);
+    transition:.25s;
+  }
+  .progress .dot.done{background:var(--red);}
+  .step-label{
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+    font-weight:700;
+  }
+
+  /* ---- Steps ---- */
+  .step{display:none;}
+  .step.active{display:block;}
+  .step h2{
+    font-size:22px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .step .sub{
+    font-size:13px;
+    color:var(--muted);
+    margin:0 0 18px;
+    line-height:1.5;
+  }
+
+  /* ---- Option cards ---- */
+  .options{display:flex; flex-direction:column; gap:10px;}
+  .opt{
+    display:flex; align-items:center; gap:12px;
+    background:var(--ink);
+    border:1.5px solid var(--line);
+    border-radius:5px;
+    padding:14px 14px;
+    cursor:pointer;
+    transition:.12s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .opt:active{transform:scale(.99);}
+  .opt.selected{
+    border-color:var(--gold);
+    background:rgba(202,162,55,.08);
+  }
+  .opt .mark{
+    width:20px;height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--line);
+    flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    transition:.12s;
+  }
+  .opt.selected .mark{border-color:var(--gold); background:var(--gold);}
+  .opt.selected .mark::after{content:"✓"; font-size:12px; color:var(--ink); font-weight:700;}
+  .opt.multi .mark{border-radius:4px;}
+  .opt .label{flex:1;}
+  .opt .title{font-size:14.5px; font-weight:600;}
+  .opt .desc{font-size:12px; color:var(--muted); margin-top:2px;}
+  .opt .price{
+    font-size:13px;
+    color:var(--gold);
+  }
+
+  /* ---- Buttons ---- */
+  .nav{display:flex; gap:10px; margin-top:24px;}
+  .btn{
+    flex:1;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    background:var(--red);
+    color:var(--paper);
+    border:none;
+    border-radius:5px;
+    padding:14px 18px;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:.15s;
+    text-decoration:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:hover{background:#d4543e;}
+  .btn:disabled{background:var(--line); color:var(--muted); cursor:not-allowed;}
+  .btn.ghost{
+    background:transparent;
+    border:1.5px solid var(--line);
+    color:var(--muted);
+    flex:0 0 auto;
+    padding:14px 18px;
+  }
+  .btn.ghost:hover{border-color:var(--paper); color:var(--paper); background:transparent;}
+  .btn.whatsapp{background:#3f8a52;}
+  .btn.whatsapp:hover{background:#4ba162;}
+  .btn.copy{background:transparent; border:1.5px solid var(--gold); color:var(--gold);}
+  .btn.copy:hover{background:rgba(202,162,55,.1);}
+
+  input[type="text"], input[type="tel"], input[type="number"]{
+    width:100%;
+    background:var(--ink);
+    border:1.5px solid var(--line);
+    color:var(--paper);
+    padding:13px 14px;
+    border-radius:5px;
+    font-family:inherit;
+    font-size:15px;
+    margin-bottom:10px;
+  }
+  input:focus{outline:1px solid var(--gold);}
+  .field-label{
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 5px;
+    font-weight:700;
+  }
+
+  .row2{display:flex; gap:10px;}
+  .row2 > div{flex:1;}
+
+  /* ---- Minor warning ---- */
+  .minor-warning{
+    display:none;
+    background:rgba(201,122,58,.12);
+    border:1.5px solid var(--warn);
+    border-radius:5px;
+    padding:14px;
+    margin:6px 0 14px;
+    font-size:13px;
+    line-height:1.6;
+  }
+  .minor-warning.show{display:block;}
+  .minor-warning .title{
+    font-weight:800;
+    color:var(--warn);
+    margin-bottom:6px;
+    text-transform:uppercase;
+    font-size:12px;
+    letter-spacing:1px;
+  }
+  .checkbox-row{
+    display:flex; align-items:flex-start; gap:10px;
+    margin-top:10px;
+    cursor:pointer;
+  }
+  .checkbox-row input{
+    margin-top:2px;
+    width:18px; height:18px;
+    accent-color: var(--gold);
+    flex-shrink:0;
+  }
+  .checkbox-row span{font-size:12.5px; line-height:1.5;}
+
+  /* ---- Summary ---- */
+  .summary{
+    background:var(--ink);
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:14px;
+    font-size:13px;
+    line-height:1.7;
+  }
+  .summary .row{display:flex; gap:8px; margin-bottom:6px;}
+  .summary .row b{
+    font-size:10.5px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--gold);
+    min-width:95px;
+    flex-shrink:0;
+    font-weight:700;
+  }
+  .ref-note{
+    margin-top:14px;
+    border:1.5px dashed var(--line);
+    border-radius:5px;
+    padding:12px 14px;
+    font-size:12.5px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  .ref-note b{color:var(--paper);}
+
+  .final-actions{display:flex; flex-direction:column; gap:10px; margin-top:18px;}
+
+  #msgPreview{
+    width:100%;
+    min-height:150px;
+    background:var(--ink);
+    border:1px solid var(--line);
+    color:var(--paper);
+    border-radius:5px;
+    padding:12px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12px;
+    line-height:1.6;
+    margin-top:14px;
+    resize:none;
+  }
+  .preview-label{
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:14px 0 0;
+    font-weight:700;
+  }
+  .send-hint{
+    font-size:12px;
+    color:var(--muted);
+    line-height:1.6;
+    margin-top:10px;
+  }
+
+  .step-error{
+    display:none;
+    background:rgba(187,59,40,.12);
+    border:1.5px solid var(--red);
+    border-radius:5px;
+    padding:10px 12px;
+    font-size:12.5px;
+    line-height:1.5;
+    margin-top:16px;
+    color:var(--paper);
+  }
+  .step-error.show{display:block;}
+
+  /* footer stamp */
+  .stamp-foot{
+    text-align:center;
+    margin-top:22px;
+    font-size:10.5px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--line);
+    font-weight:700;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="ticket-head">
+    <p class="eyebrow">Ficha de proyecto · Antes de presupuestar</p>
+    <h1 class="display">Cuéntame tu idea</h1>
+    <p>Responde estas preguntas en 1-2 minutos. Así puedo darte un presupuesto real y agendarte más rápido.</p>
+  </div>
+
+  <div class="ticket-body">
+
+    <div class="progress">
+      <div class="dot done" data-d="1"></div>
+      <div class="dot" data-d="2"></div>
+      <div class="dot" data-d="3"></div>
+      <div class="dot" data-d="4"></div>
+      <div class="dot" data-d="5"></div>
+      <div class="dot" data-d="6"></div>
+    </div>
+
+    <!-- STEP 1: Datos personales -->
+    <div class="step active" data-step="1">
+      <div class="step-label">Paso 1 / 6</div>
+      <h2 class="display">Tus datos</h2>
+      <p class="sub">Datos básicos para contactarte y preparar la cita.</p>
+
+      <div class="field-label">Nombre</div>
+      <input type="text" id="inpNombre" placeholder="Nombre">
+
+      <div class="field-label">Apellidos</div>
+      <input type="text" id="inpApellidos" placeholder="Apellidos">
+
+      <div class="row2">
+        <div>
+          <div class="field-label">Teléfono</div>
+          <input type="tel" id="inpTelefono" placeholder="Ej. 600 000 000">
+        </div>
+        <div>
+          <div class="field-label">Edad</div>
+          <input type="number" id="inpEdad" placeholder="Edad" min="0" max="120">
+        </div>
+      </div>
+
+      <div class="field-label">Instagram (opcional)</div>
+      <input type="text" id="inpIG" placeholder="@tuusuario">
+
+      <div class="minor-warning" id="minorWarning">
+        <div class="title">⚠ Eres menor de edad</div>
+        Para hacerte un tatuaje necesitas la <b>autorización por escrito de tu padre, madre o tutor legal</b>, además de su acompañamiento y DNI el día de la cita. Sin esta autorización no podremos realizar el tatuaje.
+        <label class="checkbox-row">
+          <input type="checkbox" id="chkMinor">
+          <span>Entiendo que necesito la autorización de mi padre, madre o tutor legal y la presentaré el día de la cita.</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- STEP 2: Presupuesto -->
+    <div class="step" data-step="2">
+      <div class="step-label">Paso 2 / 6</div>
+      <h2 class="display">¿Cuál es tu presupuesto?</h2>
+      <p class="sub">Elige el rango con el que te sentirías cómodo/a para esta pieza.</p>
+      <div class="options" id="optBudget">
+        <div class="opt" data-value="100€ - 300€"><div class="mark"></div><div class="label"><div class="title">100€ – 300€</div></div><div class="price">€</div></div>
+        <div class="opt" data-value="300€ - 500€"><div class="mark"></div><div class="label"><div class="title">300€ – 500€</div></div><div class="price">€€</div></div>
+        <div class="opt" data-value="500€ - 800€"><div class="mark"></div><div class="label"><div class="title">500€ – 800€</div></div><div class="price">€€€</div></div>
+        <div class="opt" data-value="800€ - 1.200€"><div class="mark"></div><div class="label"><div class="title">800€ – 1.200€</div></div><div class="price">€€€€</div></div>
+        <div class="opt" data-value="Más de 1.200€"><div class="mark"></div><div class="label"><div class="title">Más de 1.200€</div></div><div class="price">€€€€€</div></div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Tamaño -->
+    <div class="step" data-step="3">
+      <div class="step-label">Paso 3 / 6</div>
+      <h2 class="display">¿De qué tamaño es?</h2>
+      <p class="sub">Una referencia aproximada nos sirve para calcular sesiones.</p>
+      <div class="options" id="optSize">
+        <div class="opt" data-value="Pequeño (hasta 5 cm)"><div class="mark"></div><div class="label"><div class="title">Pequeño</div><div class="desc">Hasta 5 cm</div></div></div>
+        <div class="opt" data-value="Mediano (5-15 cm)"><div class="mark"></div><div class="label"><div class="title">Mediano</div><div class="desc">5 a 15 cm</div></div></div>
+        <div class="opt" data-value="Grande (15-30 cm)"><div class="mark"></div><div class="label"><div class="title">Grande</div><div class="desc">15 a 30 cm</div></div></div>
+        <div class="opt" data-value="Muy grande / media manga"><div class="mark"></div><div class="label"><div class="title">Muy grande</div><div class="desc">Media manga o equivalente</div></div></div>
+        <div class="opt" data-value="Manga completa / espalda / pieza grande"><div class="mark"></div><div class="label"><div class="title">Pieza grande</div><div class="desc">Manga completa, espalda, pecho...</div></div></div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Estilo -->
+    <div class="step" data-step="4">
+      <div class="step-label">Paso 4 / 6</div>
+      <h2 class="display">¿Qué estilo buscas?</h2>
+      <p class="sub">Puedes elegir más de uno.</p>
+      <div class="options" id="optStyle">
+        <div class="opt multi" data-value="Realismo blanco y negro"><div class="mark"></div><div class="label"><div class="title">Realismo blanco y negro</div></div></div>
+        <div class="opt multi" data-value="Color / Neotradicional"><div class="mark"></div><div class="label"><div class="title">Color / Neotradicional</div></div></div>
+        <div class="opt multi" data-value="Blackwork"><div class="mark"></div><div class="label"><div class="title">Blackwork</div></div></div>
+        <div class="opt multi" data-value="Fineline / Minimalista"><div class="mark"></div><div class="label"><div class="title">Fineline / Minimalista</div></div></div>
+        <div class="opt multi" data-value="Tradicional / Old school"><div class="mark"></div><div class="label"><div class="title">Tradicional / Old school</div></div></div>
+        <div class="opt multi" data-value="Geométrico"><div class="mark"></div><div class="label"><div class="title">Geométrico</div></div></div>
+        <div class="opt multi" data-value="No lo tengo claro / pedir consejo"><div class="mark"></div><div class="label"><div class="title">No lo tengo claro</div><div class="desc">Quiero que me asesoren</div></div></div>
+      </div>
+    </div>
+
+    <!-- STEP 5: Zona -->
+    <div class="step" data-step="5">
+      <div class="step-label">Paso 5 / 6</div>
+      <h2 class="display">¿En qué zona del cuerpo?</h2>
+      <p class="sub">Casi listo.</p>
+      <div class="options" id="optZone">
+        <div class="opt" data-value="Brazo / antebrazo"><div class="mark"></div><div class="label"><div class="title">Brazo / antebrazo</div></div></div>
+        <div class="opt" data-value="Pierna / muslo"><div class="mark"></div><div class="label"><div class="title">Pierna / muslo</div></div></div>
+        <div class="opt" data-value="Espalda"><div class="mark"></div><div class="label"><div class="title">Espalda</div></div></div>
+        <div class="opt" data-value="Pecho / costillas / abdomen"><div class="mark"></div><div class="label"><div class="title">Pecho / costillas / abdomen</div></div></div>
+        <div class="opt" data-value="Mano / cuello / cara"><div class="mark"></div><div class="label"><div class="title">Mano / cuello / cara</div></div></div>
+        <div class="opt" data-value="Otra zona"><div class="mark"></div><div class="label"><div class="title">Otra zona</div></div></div>
+      </div>
+    </div>
+
+    <!-- STEP 6: Resumen / Enviar -->
+    <div class="step" data-step="6">
+      <div class="step-label">Listo</div>
+      <h2 class="display">Revisa y envía</h2>
+      <p class="sub">Tu respuesta está lista. Tócala para enviarla por este mismo chat.</p>
+      <div class="summary" id="summaryBox"></div>
+
+      <div class="ref-note">
+        📎 <b>Importante:</b> después de enviar esto, manda también 1-2 fotos de referencia del diseño que te gusta y, si puedes, una foto de la zona del cuerpo donde quieres el tatuaje.
+      </div>
+
+      <div class="preview-label">Tu mensaje (puedes editarlo si quieres)</div>
+      <textarea id="msgPreview" class="mono"></textarea>
+
+      <div class="final-actions">
+        <button class="btn whatsapp" id="btnShare">📤 Enviar respuesta</button>
+        <button class="btn copy" id="btnCopy">Copiar texto</button>
+      </div>
+      <div class="send-hint" id="sendHint">
+        Toca "Enviar respuesta" para mandarlo directamente por este chat. Si tu navegador no lo permite, usa "Copiar texto" y pégalo aquí mismo.
+      </div>
+    </div>
+
+    <div class="step-error" id="stepError"></div>
+    <div class="nav" id="navButtons">
+      <button class="btn ghost" id="btnBack">Atrás</button>
+      <button class="btn" id="btnNext">Siguiente</button>
+    </div>
+
+  </div>
+
+  <div class="stamp-foot">— hecho a mano, sin prisa —</div>
+</div>
+
+<script>
+const state = {
+  nombre:"", apellidos:"", telefono:"", edad:"", ig:"",
+  budget:null,
+  size:null,
+  styles:[],
+  zone:null
+};
+
+let currentStep = 1;
+const totalSteps = 6;
+
+function updateProgress(){
+  document.querySelectorAll('.progress .dot').forEach(d=>{
+    const n = parseInt(d.dataset.d);
+    d.classList.toggle('done', n <= currentStep);
+  });
+}
+
+function showStep(n){
+  document.querySelectorAll('.step').forEach(s=>{
+    s.classList.toggle('active', parseInt(s.dataset.step) === n);
+  });
+  const nav = document.getElementById('navButtons');
+  const btnBack = document.getElementById('btnBack');
+  const btnNext = document.getElementById('btnNext');
+  hideError();
+
+  if(n === totalSteps){
+    nav.style.display = 'none';
+    buildSummary();
+  } else {
+    nav.style.display = 'flex';
+    btnBack.style.visibility = (n === 1) ? 'hidden' : 'visible';
+    btnNext.textContent = (n === totalSteps - 1) ? 'Ver resumen' : 'Siguiente';
+  }
+  updateProgress();
+}
+
+function showError(msg){
+  const el = document.getElementById('stepError');
+  el.textContent = msg;
+  el.classList.add('show');
+}
+function hideError(){
+  document.getElementById('stepError').classList.remove('show');
+}
+
+// Lee del DOM y valida el paso actual. Devuelve true/false.
+function readAndValidateStep(){
+  if(currentStep === 1){
+    state.nombre = inpNombre.value.trim();
+    state.apellidos = inpApellidos.value.trim();
+    state.telefono = inpTelefono.value.trim();
+    state.edad = inpEdad.value.trim();
+    state.ig = inpIG.value.trim();
+
+    const edadNum = parseInt(state.edad);
+    if(!isNaN(edadNum) && edadNum >= 0 && edadNum < 18){
+      minorWarning.classList.add('show');
+    } else {
+      minorWarning.classList.remove('show');
+    }
+
+    if(!state.nombre || !state.apellidos || !state.telefono || state.edad === "" || isNaN(edadNum) || edadNum < 0){
+      showError('Rellena nombre, apellidos, teléfono y edad para continuar.');
+      return false;
+    }
+    if(edadNum < 18 && !chkMinor.checked){
+      showError('Marca la casilla de autorización del padre/madre/tutor legal para continuar.');
+      return false;
+    }
+    return true;
+  }
+  if(currentStep === 2){
+    if(!state.budget){ showError('Elige un rango de presupuesto.'); return false; }
+    return true;
+  }
+  if(currentStep === 3){
+    if(!state.size){ showError('Elige un tamaño aproximado.'); return false; }
+    return true;
+  }
+  if(currentStep === 4){
+    if(state.styles.length === 0){ showError('Elige al menos un estilo.'); return false; }
+    return true;
+  }
+  if(currentStep === 5){
+    if(!state.zone){ showError('Elige una zona del cuerpo.'); return false; }
+    return true;
+  }
+  return true;
+}
+
+// ---- Step 1 inputs ----
+const inpNombre = document.getElementById('inpNombre');
+const inpApellidos = document.getElementById('inpApellidos');
+const inpTelefono = document.getElementById('inpTelefono');
+const inpEdad = document.getElementById('inpEdad');
+const inpIG = document.getElementById('inpIG');
+const minorWarning = document.getElementById('minorWarning');
+const chkMinor = document.getElementById('chkMinor');
+
+inpEdad.addEventListener('input', e=>{
+  const edadNum = parseInt(e.target.value.trim());
+  if(!isNaN(edadNum) && edadNum < 18 && edadNum >= 0){
+    minorWarning.classList.add('show');
+  } else {
+    minorWarning.classList.remove('show');
+    chkMinor.checked = false;
+  }
+});
+
+// ---- single-select groups ----
+function setupSingle(containerId, stateKey){
+  const opts = document.querySelectorAll('#'+containerId+' .opt');
+  opts.forEach(o=>{
+    o.addEventListener('click', ()=>{
+      opts.forEach(x=>x.classList.remove('selected'));
+      o.classList.add('selected');
+      state[stateKey] = o.dataset.value;
+      validateNext();
+    });
+  });
+}
+setupSingle('optBudget','budget');
+setupSingle('optSize','size');
+setupSingle('optZone','zone');
+
+// ---- multi-select (estilos) ----
+document.querySelectorAll('#optStyle .opt').forEach(o=>{
+  o.addEventListener('click', ()=>{
+    o.classList.toggle('selected');
+    const v = o.dataset.value;
+    if(o.classList.contains('selected')){
+      if(!state.styles.includes(v)) state.styles.push(v);
+    } else {
+      state.styles = state.styles.filter(x=>x!==v);
+    }
+    validateNext();
+  });
+});
+
+document.getElementById('btnNext').addEventListener('click', ()=>{
+  if(currentStep < totalSteps){
+    currentStep++;
+    showStep(currentStep);
+  }
+});
+document.getElementById('btnBack').addEventListener('click', ()=>{
+  if(currentStep > 1){
+    currentStep--;
+    showStep(currentStep);
+  }
+});
+
+function buildMessage(){
+  let lines = [];
+  lines.push("Hola! Te dejo mi ficha para presupuestar un tatuaje 🖋️");
+  lines.push("");
+  lines.push("Nombre: " + state.nombre + " " + state.apellidos);
+  lines.push("Teléfono: " + state.telefono);
+  lines.push("Edad: " + state.edad);
+  if(parseInt(state.edad) < 18){
+    lines.push("⚠ Soy menor de edad y aportaré autorización de mi padre/madre/tutor legal el día de la cita.");
+  }
+  if(state.ig) lines.push("Instagram: " + state.ig);
+  lines.push("");
+  lines.push("Presupuesto: " + state.budget);
+  lines.push("Tamaño: " + state.size);
+  lines.push("Estilo: " + state.styles.join(", "));
+  lines.push("Zona del cuerpo: " + state.zone);
+  lines.push("");
+  lines.push("(Os mando ahora fotos de referencia y de la zona)");
+  return lines.join("\n");
+}
+
+function buildSummary(){
+  const box = document.getElementById('summaryBox');
+  box.innerHTML = `
+    <div class="row"><b>Nombre</b><span>${escapeHtml(state.nombre + " " + state.apellidos)}</span></div>
+    <div class="row"><b>Teléfono</b><span>${escapeHtml(state.telefono)}</span></div>
+    <div class="row"><b>Edad</b><span>${escapeHtml(state.edad)}${parseInt(state.edad)<18 ? ' (menor — autorización requerida)' : ''}</span></div>
+    ${state.ig ? `<div class="row"><b>Instagram</b><span>${escapeHtml(state.ig)}</span></div>` : ''}
+    <div class="row"><b>Presupuesto</b><span>${escapeHtml(state.budget)}</span></div>
+    <div class="row"><b>Tamaño</b><span>${escapeHtml(state.size)}</span></div>
+    <div class="row"><b>Estilo</b><span>${escapeHtml(state.styles.join(", "))}</span></div>
+    <div class="row"><b>Zona</b><span>${escapeHtml(state.zone)}</span></div>
+  `;
+  document.getElementById('msgPreview').value = buildMessage();
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str || '';
+  return div.innerHTML;
+}
+
+// ---- Send / copy ----
+document.getElementById('btnShare').addEventListener('click', async ()=>{
+  const text = document.getElementById('msgPreview').value;
+  const hint = document.getElementById('sendHint');
+
+  if(navigator.share){
+    try{
+      await navigator.share({ text });
+      return;
+    }catch(err){
+      // usuario canceló o no soportado: seguimos con fallback
+    }
+  }
+
+  // Fallback: copiar al portapapeles
+  const copied = await tryCopy(text);
+  if(copied){
+    hint.textContent = '✓ Texto copiado. Vuelve a este chat y pégalo para enviarlo.';
+  } else {
+    // último recurso: seleccionar el texto para copia manual
+    const ta = document.getElementById('msgPreview');
+    ta.focus();
+    ta.select();
+    hint.textContent = 'Selecciona el texto de arriba, cópialo (mantén pulsado → Copiar) y pégalo en este chat.';
+  }
+});
+
+document.getElementById('btnCopy').addEventListener('click', async (e)=>{
+  const text = document.getElementById('msgPreview').value;
+  const btn = e.target;
+  const orig = btn.textContent;
+  const copied = await tryCopy(text);
+  if(copied){
+    btn.textContent = 'Copiado ✓';
+  } else {
+    const ta = document.getElementById('msgPreview');
+    ta.focus();
+    ta.select();
+    btn.textContent = 'Selecciona y copia arriba';
+  }
+  setTimeout(()=> btn.textContent = orig, 2200);
+});
+
+async function tryCopy(text){
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  }catch(e){}
+  try{
+    const ta = document.getElementById('msgPreview');
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand('copy');
+    return ok;
+  }catch(e){}
+  return false;
+}
+
+showStep(1);
+</script>
+</body>
+</html>
