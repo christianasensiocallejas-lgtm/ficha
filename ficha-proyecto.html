@@ -603,7 +603,7 @@ function setupSingle(containerId, stateKey){
       opts.forEach(x=>x.classList.remove('selected'));
       o.classList.add('selected');
       state[stateKey] = o.dataset.value;
-      validateNext();
+      hideError();
     });
   });
 }
@@ -621,12 +621,13 @@ document.querySelectorAll('#optStyle .opt').forEach(o=>{
     } else {
       state.styles = state.styles.filter(x=>x!==v);
     }
-    validateNext();
+    hideError();
   });
 });
 
 document.getElementById('btnNext').addEventListener('click', ()=>{
   if(currentStep < totalSteps){
+    if(!readAndValidateStep()) return;
     currentStep++;
     showStep(currentStep);
   }

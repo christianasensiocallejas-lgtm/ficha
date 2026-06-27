@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elysium Tattoo Studio — Paterna, Valencia</title>
+<meta name="description" content="Estudio de tatuajes profesional en Paterna, Valencia. Especialistas en Black & Grey Realism, Fine Line, Blackwork y Lettering. Reserva tu cita por WhatsApp.">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<template id="__bundler_thumbnail" data-bg-color="#0A0A0A">
+  <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+    <rect width="800" height="500" fill="#0A0A0A"/>
+    <text x="400" y="220" font-family="Georgia,serif" font-size="72" font-weight="400" fill="#F5F0E8" text-anchor="middle" letter-spacing="8">ELYSIUM</text>
+    <text x="400" y="272" font-family="Georgia,serif" font-size="22" font-weight="400" fill="rgba(245,240,232,0.5)" text-anchor="middle" letter-spacing="10">TATTOO STUDIO</text>
+    <line x1="300" y1="310" x2="500" y2="310" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
+    <text x="400" y="340" font-family="monospace" font-size="12" fill="#C9A84C" text-anchor="middle" letter-spacing="4">PATERNA · VALENCIA</text>
+  </svg>
+</template>
+<helmet>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: #0A0A0A; color: #F5F0E8; font-family: 'Inter', system-ui, sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: #C9A84C; color: #0A0A0A; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .rd1 { transition-delay: .1s; } .rd2 { transition-delay: .2s; } .rd3 { transition-delay: .3s; } .rd4 { transition-delay: .4s; }
+    @media(max-width:768px){
+      /* NAV */
+      nav { padding: 16px 20px !important; }
+      .nav-links { display: none !important; }
+
+      /* HERO */
+      #hero { padding: 0 20px 72px !important; }
+
+      /* ALL SECTIONS */
+      #estudio, #estilos, #galeria, #artista, #aftercare, #faq,
+      #contacto, #ubicacion, footer,
+      section[style*="padding:120px"], section[style*="padding:100px"],
+      section[style*="padding:80px"] {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        padding-top: 72px !important;
+        padding-bottom: 72px !important;
+      }
+
+      /* GRIDS → 1 COLUMN */
+      .split-2,
+      div[style*="grid-template-columns: repeat(3"],
+      div[style*="grid-template-columns:repeat(3"],
+      div[style*="grid-template-columns: repeat(5"],
+      div[style*="grid-template-columns:repeat(5"],
+      div[style*="grid-template-columns: repeat(4"],
+      div[style*="grid-template-columns:repeat(4"] {
+        grid-template-columns: 1fr !important;
+        gap: 2px !important;
+      }
+
+      /* GALLERY → 2 COLUMNS */
+      .gallery-grid { grid-template-columns: 1fr 1fr !important; }
+
+      /* AFTERCARE → 2 COLUMNS */
+      .aftercare-grid { grid-template-columns: 1fr 1fr !important; }
+
+      /* ACADEMIA BANNER */
+      div[style*="justify-content:space-between"][style*="flex-wrap:wrap"] {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 28px !important;
+      }
+
+      /* FOOTER */
+      footer div[style*="justify-content:space-between"] {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 24px !important;
+      }
+      footer div[style*="text-align:right"] { text-align: center !important; }
+
+      /* ARTISTA STATS */
+      div[style*="display:flex"][style*="gap:48px"] { flex-wrap: wrap !important; gap: 24px !important; }
+
+      /* FLOATING CTA bottom offset */
+      #float-cta { bottom: 20px !important; right: 20px !important; padding: 12px 20px !important; font-size: 11px !important; }
+    }
+  </style>
+</helmet>
+
+<!-- PROGRESS BAR -->
+<div id="prog" style="position:fixed;top:0;left:0;height:2px;background:#C9A84C;width:0%;z-index:9999;transition:width .1s linear"></div>
+
+<!-- NAV -->
+<nav id="nav" style="position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 48px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,padding .4s,border-color .4s;border-bottom:1px solid transparent">
+  <a href="#hero" style="font-family:'Playfair Display',Georgia,serif;font-size:16px;font-weight:700;letter-spacing:.18em;color:#C9A84C;text-transform:uppercase;text-decoration:none">ELYSIUM</a>
+  <div class="nav-links" style="display:flex;align-items:center;gap:32px">
+    <a href="#estilos" style="font-size:11px;letter-spacing:.1em;color:rgba(245,240,232,.5);text-transform:uppercase">Estilos</a>
+    <a href="#galeria" style="font-size:11px;letter-spacing:.1em;color:rgba(245,240,232,.5);text-transform:uppercase">Galería</a>
+    <a href="#artista" style="font-size:11px;letter-spacing:.1em;color:rgba(245,240,232,.5);text-transform:uppercase">El artista</a>
+    <a href="#contacto" style="font-size:11px;letter-spacing:.1em;color:rgba(245,240,232,.5);text-transform:uppercase">Contacto</a>
+  </div>
+  <a id="nav-cta" href="https://wa.me/34614191350?text=Hola,%20me%20gustaría%20pedir%20información%20sobre%20una%20cita" target="_blank" style="background:#C9A84C;color:#0A0A0A;padding:11px 26px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-family:inherit;transition:opacity .2s,transform .2s">Reservar cita</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 80px;position:relative;overflow:hidden">
+  <!-- Photo bg -->
+  <div style="position:absolute;inset:0;background-image:url('uploads/IMG_6067.jpeg');background-size:cover;background-position:center;filter:brightness(.47)"></div>
+  <!-- Overlays -->
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,1) 0%,rgba(10,10,10,.35) 55%,rgba(10,10,10,.55) 100%)"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 60% at 70% 35%,rgba(201,168,76,.06) 0%,transparent 70%)"></div>
+
+  <div style="position:relative;z-index:2">
+    <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.28em;color:#C9A84C;text-transform:uppercase;display:block;margin-bottom:28px;opacity:0;transform:translateY(20px);animation:fadeUp .8s .3s forwards">Paterna · Valencia · Estudio profesional</span>
+    <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);padding:9px 20px;margin-bottom:40px;opacity:0;animation:fadeIn .8s .5s forwards">
+      <span id="status-dot" style="width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0"></span>
+      <span id="status-text" style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;color:#C9A84C;text-transform:uppercase">Abierto · Por cita previa</span>
+    </div>
+    <h1 style="font-family:'Playfair Display',Georgia,serif;line-height:.9;letter-spacing:-.02em;color:#F5F0E8;opacity:0;transform:translateY(30px);animation:fadeUp .9s .6s forwards;margin:0">
+      <div style="display:table;text-align:center">
+        <em style="font-style:normal;color:#F5F0E8;font-size:clamp(64px,9vw,140px);display:block;font-weight:400">ELYSIUM</em>
+        <span style="font-size:clamp(22px,3vw,48px);font-weight:400;letter-spacing:.32em;text-transform:uppercase;color:rgba(245,240,232,.7);display:block;margin-top:12px">TATTOO STUDIO</span>
+      </div>
+    </h1>
+    <p style="margin-top:36px;max-width:460px;font-size:17px;line-height:1.78;color:rgba(245,240,232,.52);font-weight:300;opacity:0;transform:translateY(20px);animation:fadeUp .8s .9s forwards">
+      Una experiencia cercana y profesional donde cada proyecto recibe el asesoramiento que merece.
+    </p>
+    <div style="margin-top:44px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);animation:fadeUp .8s 1.1s forwards">
+      <a id="hero-cta" href="https://wa.me/34614191350?text=Hola,%20me%20gustaría%20pedir%20información%20sobre%20una%20cita" target="_blank" style="background:#C9A84C;color:#0A0A0A;padding:18px 44px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;display:inline-block;transition:background .2s,transform .2s,box-shadow .2s">Reservar cita →</a>
+      <a id="hero-ghost" href="#galeria" style="border:1px solid rgba(245,240,232,.2);color:#F5F0E8;padding:18px 40px;font-size:13px;font-weight:400;letter-spacing:.06em;display:inline-block;transition:border-color .2s,color .2s">Ver galería</a>
+    </div>
+  </div>
+</section>
+
+<!-- ESTILOS -->
+<section id="estilos" class="section-pad" style="padding:120px 48px;background:#111111">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="reveal" style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+      <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.25em;color:#C9A84C;text-transform:uppercase">Especialidades</span>
+      <span style="flex:0 0 48px;height:1px;background:#C9A84C;opacity:.5"></span>
+    </div>
+    <h2 class="reveal" style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,68px);font-weight:700;line-height:1.05;max-width:700px;margin-bottom:72px">
+      Cada trazo,<br><em style="font-style:italic;color:#C9A84C">una decisión.</em>
+    </h2>
+    <div class="styles-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:rgba(255,255,255,.04)">
+
+      <div class="reveal rd1" style="background:#111;padding:44px 32px;border-bottom:2px solid transparent;transition:border-color .3s,background .3s" onmouseenter="this.style.borderColor='#C9A84C';this.style.background='#161616'" onmouseleave="this.style.borderColor='transparent';this.style.background='#111'">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;color:#C9A84C;text-transform:uppercase;margin-bottom:20px">01</div>
+        <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#F5F0E8;margin-bottom:12px">Black &amp; Grey<br>Realism</h3>
+        <p style="font-size:13px;color:rgba(245,240,232,.45);line-height:1.7">Retratos y composiciones con degradados precisos y profundidad fotográfica.</p>
+      </div>
+
+      <div class="reveal rd2" style="background:#111;padding:44px 32px;border-bottom:2px solid transparent;transition:border-color .3s,background .3s" onmouseenter="this.style.borderColor='#C9A84C';this.style.background='#161616'" onmouseleave="this.style.borderColor='transparent';this.style.background='#111'">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;color:#C9A84C;text-transform:uppercase;margin-bottom:20px">02</div>
+        <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#F5F0E8;margin-bottom:12px">Fine Line</h3>
+        <p style="font-size:13px;color:rgba(245,240,232,.45);line-height:1.7">Trazos finos y delicados. Diseños elegantes con máxima precisión y detalle.</p>
+      </div>
+
+      <div class="reveal rd3" style="background:#111;padding:44px 32px;border-bottom:2px solid transparent;transition:border-color .3s,background .3s" onmouseenter="this.style.borderColor='#C9A84C';this.style.background='#161616'" onmouseleave="this.style.borderColor='transparent';this.style.background='#111'">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;color:#C9A84C;text-transform:uppercase;margin-bottom:20px">03</div>
+        <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#F5F0E8;margin-bottom:12px">Blackwork</h3>
+        <p style="font-size:13px;color:rgba(245,240,232,.45);line-height:1.7">Sólidos, geométricos y de alto contraste. Impacto visual duradero.</p>
+      </div>
+
+      <div class="reveal rd4" style="background:#111;padding:44px 32px;border-bottom:2px solid transparent;transition:border-color .3s,background .3s" onmouseenter="this.style.borderColor='#C9A84C';this.style.background='#161616'" onmouseleave="this.style.borderColor='transparent';this.style.background='#111'">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;color:#C9A84C;text-transform:uppercase;margin-bottom:20px">04</div>
+        <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#F5F0E8;margin-bottom:12px">Lettering</h3>
+        <p style="font-size:13px;color:rgba(245,240,232,.45);line-height:1.7">Palabras que perduran. Tipografía a medida con personalidad propia.</p>
+      </div>
+
+      <div class="reveal rd4" style="background:#111;padding:44px 32px;border-bottom:2px solid transparent;transition:border-color .3s,background .3s" onmouseenter="this.style.borderColor='#C9A84C';this.style.background='#161616'" onmouseleave="this.style.borderColor='transparent';this.style.background='#111'">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;color:#C9A84C;text-transform:uppercase;margin-bottom:20px">05</div>
+        <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#F5F0E8;margin-bottom:12px">Minimalista</h3>
+        <p style="font-size:13px;color:rgba(245,240,232,.45);line-height:1.7">Lo esencial. Diseños limpios donde cada línea tiene un propósito.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria" class="section-pad" style="padding:120px 48px;background:#0A0A0A">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="reveal" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:64px;flex-wrap:wrap;gap:16px">
+      <div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+          <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.25em;color:#C9A84C;text-transform:uppercase">Galería</span>
+          <span style="flex:0 0 48px;height:1px;background:#C9A84C;opacity:.5"></span>
+        </div>
+        <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,4.5vw,60px);font-weight:700;line-height:1.05">
+          El trabajo<br><em style="font-style:italic;color:#C9A84C">habla solo.</em>
+        </h2>
+      </div>
+      <a href="https://www.instagram.com/elysium.tattoostudio" target="_blank" style="display:flex;align-items:center;gap:10px;border:1px solid rgba(201,168,76,.25);color:rgba(245,240,232,.55);padding:12px 24px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;transition:border-color .2s,color .2s" onmouseenter="this.style.borderColor='#C9A84C';this.style.color='#C9A84C'" onmouseleave="this.style.borderColor='rgba(201,168,76,.25)';this.style.color='rgba(245,240,232,.55)'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @elysium.tattoostudio
+      </a>
+    </div>
+    <div class="gallery-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+
+      <div class="reveal rd1" style="aspect-ratio:3/4;position:relative;overflow:hidden;background:#111;cursor:pointer" onmouseenter="this.querySelector('img').style.transform='scale(1.06)';this.querySelector('.go').style.opacity='1'" onmouseleave="this.querySelector('img').style.transform='scale(1)';this.querySelector('.go').style.opacity='0'">
+        <img src="uploads/IMG_1030.JPG" alt="Black & Grey Realism" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .5s ease">
+        <div class="go" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.65) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:20px">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#C9A84C;text-transform:uppercase">Black &amp; Grey</span>
+        </div>
+      </div>
+
+      <div class="reveal rd2" style="aspect-ratio:3/4;position:relative;overflow:hidden;background:#111;cursor:pointer" onmouseenter="this.querySelector('img').style.transform='scale(1.06)';this.querySelector('.go').style.opacity='1'" onmouseleave="this.querySelector('img').style.transform='scale(1)';this.querySelector('.go').style.opacity='0'">
+        <img src="uploads/IMG_1070.JPG" alt="Sleeve Realism" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease">
+        <div class="go" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.65) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:20px">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#C9A84C;text-transform:uppercase">Sleeve Realism</span>
+        </div>
+      </div>
+
+      <div class="reveal rd3" style="aspect-ratio:3/4;position:relative;overflow:hidden;background:#111;cursor:pointer" onmouseenter="this.querySelector('img').style.transform='scale(1.06)';this.querySelector('.go').style.opacity='1'" onmouseleave="this.querySelector('img').style.transform='scale(1)';this.querySelector('.go').style.opacity='0'">
+        <img src="uploads/IMG_7037.jpeg" alt="Stone Face" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .5s ease">
+        <div class="go" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.65) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:20px">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#C9A84C;text-transform:uppercase">Black &amp; Grey</span>
+        </div>
+      </div>
+
+      <div class="reveal rd1" style="aspect-ratio:3/4;position:relative;overflow:hidden;background:#111;cursor:pointer" onmouseenter="this.querySelector('img').style.transform='scale(1.06)';this.querySelector('.go').style.opacity='1'" onmouseleave="this.querySelector('img').style.transform='scale(1)';this.querySelector('.go').style.opacity='0'">
+        <img src="uploads/IMG_7483.jpeg" alt="Japanese Sleeve" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease">
+        <div class="go" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.65) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:20px">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#C9A84C;text-transform:uppercase">Japanese Style</span>
+        </div>
+      </div>
+
+      <div class="reveal rd2" style="aspect-ratio:3/4;position:relative;overflow:hidden;background:#111;cursor:pointer" onmouseenter="this.querySelector('img').style.transform='scale(1.06)';this.querySelector('.go').style.opacity='1'" onmouseleave="this.querySelector('img').style.transform='scale(1)';this.querySelector('.go').style.opacity='0'">
+        <img src="uploads/IMG_7669.jpeg" alt="Wolf & Clock" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .5s ease">
+        <div class="go" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.65) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:20px">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#C9A84C;text-transform:uppercase">Black &amp; Grey</span>
+        </div>
+      </div>
+
+      <div class="reveal rd3" style="aspect-ratio:3/4;position:relative;overflow:hidden;background:#111;cursor:pointer" onmouseenter="this.querySelector('img').style.transform='scale(1.06)';this.querySelector('.go').style.opacity='1'" onmouseleave="this.querySelector('img').style.transform='scale(1)';this.querySelector('.go').style.opacity='0'">
+        <img src="uploads/IMG_9791.jpg" alt="Color Portrait" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease">
+        <div class="go" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.65) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:20px">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#C9A84C;text-transform:uppercase">Color Realism</span>
+        </div>
+      </div>
+
+      <div class="reveal rd1" style="aspect-ratio:3/4;position:relative;overflow:hidden;background:#111;cursor:pointer" onmouseenter="this.querySelector('img').style.transform='scale(1.06)';this.querySelector('.go').style.opacity='1'" onmouseleave="this.querySelector('img').style.transform='scale(1)';this.querySelector('.go').style.opacity='0'">
+        <img src="uploads/IMG_8709_2.jpg" alt="Rosas & Lettering" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .5s ease">
+        <div class="go" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.65) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:20px">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#C9A84C;text-transform:uppercase">Black &amp; Grey</span>
+        </div>
+      </div>
+
+      <div class="reveal rd2" style="aspect-ratio:3/4;position:relative;overflow:hidden;background:#111;cursor:pointer" onmouseenter="this.querySelector('img').style.transform='scale(1.06)';this.querySelector('.go').style.opacity='1'" onmouseleave="this.querySelector('img').style.transform='scale(1)';this.querySelector('.go').style.opacity='0'">
+        <img src="uploads/IMG_9575_2.jpg" alt="Familia Supra Omnia Sleeve" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease">
+        <div class="go" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.65) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:20px">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#C9A84C;text-transform:uppercase">Full Sleeve</span>
+        </div>
+      </div>
+
+      <div class="reveal rd3" style="aspect-ratio:3/4;position:relative;overflow:hidden;background:#111;cursor:pointer" onmouseenter="this.querySelector('img').style.transform='scale(1.06)';this.querySelector('.go').style.opacity='1'" onmouseleave="this.querySelector('img').style.transform='scale(1)';this.querySelector('.go').style.opacity='0'">
+        <img src="uploads/IMG_9686_2.jpg" alt="Máscaras" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease">
+        <div class="go" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.65) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:20px">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#C9A84C;text-transform:uppercase">Black &amp; Grey</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ARTISTA -->
+<section id="artista" class="section-pad" style="padding:120px 48px;background:#111111">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="split-2" style="display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:start">
+      <!-- Photo placeholder -->
+      <div class="reveal" style="aspect-ratio:3/4;background:#161616;position:relative;overflow:hidden">
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:linear-gradient(135deg,#1a1a1a,#0d0d0d)">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="36" height="28" rx="2" stroke="rgba(201,168,76,0.25)" stroke-width="1.5"/><circle cx="18" cy="20" r="4" stroke="rgba(201,168,76,0.25)" stroke-width="1.5"/><path d="M6 32 L16 22 L24 30 L32 20 L42 32" stroke="rgba(201,168,76,0.25)" stroke-width="1.5" fill="none"/></svg>
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(201,168,76,.35);text-transform:uppercase">Foto del artista</span>
+        </div>
+        <div style="position:absolute;bottom:28px;left:28px;background:#C9A84C;color:#0A0A0A;padding:10px 18px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:500">Fundador &amp; Artista</div>
+      </div>
+      <!-- Content -->
+      <div>
+        <div class="reveal" style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+          <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.25em;color:#C9A84C;text-transform:uppercase">El artista</span>
+          <span style="flex:0 0 48px;height:1px;background:#C9A84C;opacity:.5"></span>
+        </div>
+        <h2 class="reveal" style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,4vw,56px);font-weight:700;line-height:1.1;margin-bottom:32px">
+          Soy Christian.<br><em style="font-style:italic;color:#C9A84C">Cada proyecto,</em><br>una historia única.
+        </h2>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <p class="reveal" style="font-size:16px;color:rgba(245,240,232,.6);line-height:1.85">
+            Especializado en <strong style="color:#F5F0E8;font-weight:500">Black &amp; Grey Realism</strong>, llevo años dedicado a convertir ideas en tatuajes que perduran. Mi estudio en Paterna, Valencia, es un espacio diseñado para que la experiencia de tatuarse sea tan memorable como el resultado.
+          </p>
+          <p class="reveal rd1" style="font-size:16px;color:rgba(245,240,232,.6);line-height:1.85">
+            Cada cliente que entra por la puerta recibe atención personalizada. Escucho tu idea, asesoro sobre el diseño y te acompaño durante todo el proceso para que el resultado final supere tus expectativas.
+          </p>
+          <p class="reveal rd2" style="font-size:16px;color:rgba(245,240,232,.6);line-height:1.85">
+            En ELYSIUM no hacemos tatuajes en serie. <strong style="color:#F5F0E8;font-weight:500">Cada pieza es única</strong>, pensada y ejecutada específicamente para ti.
+          </p>
+        </div>
+        <div class="reveal rd3" style="margin-top:48px;padding-top:40px;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:48px">
+          <div>
+            <div style="font-family:'Playfair Display',Georgia,serif;font-size:44px;font-weight:900;color:#C9A84C;line-height:1">∞</div>
+            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#8A8A8A;text-transform:uppercase;margin-top:6px">Dedicación</div>
+          </div>
+          <div>
+            <div style="font-family:'Playfair Display',Georgia,serif;font-size:44px;font-weight:900;color:#C9A84C;line-height:1">1</div>
+            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#8A8A8A;text-transform:uppercase;margin-top:6px">Método propio</div>
+          </div>
+          <div>
+            <div style="font-family:'Playfair Display',Georgia,serif;font-size:44px;font-weight:900;color:#C9A84C;line-height:1">0</div>
+            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#8A8A8A;text-transform:uppercase;margin-top:6px">Atajos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AFTERCARE -->
+<section id="aftercare" class="section-pad" style="padding:120px 48px;background:#0A0A0A">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="reveal" style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+      <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.25em;color:#C9A84C;text-transform:uppercase">Cuidados</span>
+      <span style="flex:0 0 48px;height:1px;background:#C9A84C;opacity:.5"></span>
+    </div>
+    <h2 class="reveal" style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,4.5vw,64px);font-weight:700;line-height:1.05;margin-bottom:24px">
+      Cuida tu tatuaje.<br><em style="font-style:italic;color:#C9A84C">Dura para siempre.</em>
+    </h2>
+    <p class="reveal" style="font-size:16px;color:rgba(245,240,232,.5);line-height:1.8;max-width:600px;margin-bottom:72px">
+      Un buen tatuaje necesita los cuidados adecuados en los primeros días. Sigue estos pasos y el resultado será óptimo.
+    </p>
+    <div class="aftercare-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,.04)">
+
+      <div class="reveal rd1" style="background:#0A0A0A;padding:44px 32px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-16px;right:-8px;font-family:'Playfair Display',Georgia,serif;font-size:110px;font-weight:900;color:rgba(201,168,76,.05);line-height:1;pointer-events:none">1</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;color:#C9A84C;text-transform:uppercase;margin-bottom:20px">Primeras horas</div>
+        <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#F5F0E8;margin-bottom:12px">Película protectora</h3>
+        <p style="font-size:13px;color:rgba(245,240,232,.45);line-height:1.7">Mantén el film o apósito que te hemos puesto entre 4 y 6 horas. No lo retires antes.</p>
+      </div>
+
+      <div class="reveal rd2" style="background:#0d0d0d;padding:44px 32px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-16px;right:-8px;font-family:'Playfair Display',Georgia,serif;font-size:110px;font-weight:900;color:rgba(201,168,76,.05);line-height:1;pointer-events:none">2</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;color:#C9A84C;text-transform:uppercase;margin-bottom:20px">Días 1–3</div>
+        <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#F5F0E8;margin-bottom:12px">Limpieza suave</h3>
+        <p style="font-size:13px;color:rgba(245,240,232,.45);line-height:1.7">Lava con agua tibia y jabón neutro 2 veces al día. Seca con toquecitos, nunca frotando.</p>
+      </div>
+
+      <div class="reveal rd3" style="background:#0A0A0A;padding:44px 32px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-16px;right:-8px;font-family:'Playfair Display',Georgia,serif;font-size:110px;font-weight:900;color:rgba(201,168,76,.05);line-height:1;pointer-events:none">3</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;color:#C9A84C;text-transform:uppercase;margin-bottom:20px">Días 4–14</div>
+        <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#F5F0E8;margin-bottom:12px">Hidratación</h3>
+        <p style="font-size:13px;color:rgba(245,240,232,.45);line-height:1.7">Aplica crema hidratante sin fragancia 2–3 veces al día. No arranques las costras, déjalas caer solas.</p>
+      </div>
+
+      <div class="reveal rd4" style="background:#0d0d0d;padding:44px 32px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-16px;right:-8px;font-family:'Playfair Display',Georgia,serif;font-size:110px;font-weight:900;color:rgba(201,168,76,.05);line-height:1;pointer-events:none">4</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;color:#C9A84C;text-transform:uppercase;margin-bottom:20px">Siempre</div>
+        <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#F5F0E8;margin-bottom:12px">Protege del sol</h3>
+        <p style="font-size:13px;color:rgba(245,240,232,.45);line-height:1.7">Evita el sol directo y la piscina al menos 3 semanas. Usa SPF 50 una vez cicatrizado.</p>
+      </div>
+
+    </div>
+    <div class="reveal" style="margin-top:2px;background:#111;padding:36px 40px;border-left:3px solid #C9A84C;display:flex;align-items:center;gap:20px">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+      <p style="font-size:15px;color:rgba(245,240,232,.6);line-height:1.7">¿Tienes alguna duda sobre el cuidado de tu tatuaje? Escríbenos por WhatsApp y te ayudamos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section-pad" style="padding:120px 48px;background:#111111">
+  <div style="max-width:860px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:72px">
+      <div class="reveal" style="display:inline-flex;align-items:center;gap:16px;margin-bottom:24px">
+        <span style="flex:0 0 40px;height:1px;background:#C9A84C;opacity:.5"></span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.25em;color:#C9A84C;text-transform:uppercase">Preguntas frecuentes</span>
+        <span style="flex:0 0 40px;height:1px;background:#C9A84C;opacity:.5"></span>
+      </div>
+      <h2 class="reveal" style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,4.5vw,60px);font-weight:700;line-height:1.05">
+        Todo lo que<br><em style="font-style:italic;color:#C9A84C">necesitas saber.</em>
+      </h2>
+    </div>
+    <div id="faq-list" style="display:flex;flex-direction:column;gap:2px">
+
+      <div class="faq-item reveal" style="background:#0A0A0A;overflow:hidden">
+        <div class="faq-q" style="padding:24px 36px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s" onmouseenter="this.style.background='rgba(201,168,76,.04)'" onmouseleave="this.style.background='transparent'">
+          <span style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700">¿Necesito cita previa?</span>
+          <span class="faq-icon" style="color:#C9A84C;font-size:22px;transition:transform .3s;flex-shrink:0">+</span>
+        </div>
+        <div class="faq-body" style="max-height:0;overflow:hidden;transition:max-height .4s ease">
+          <div style="padding:0 36px 28px;font-size:15px;color:rgba(245,240,232,.55);line-height:1.8;border-left:2px solid #C9A84C;margin:0 36px 28px">
+            Sí, trabajamos exclusivamente con cita previa para garantizar la atención que mereces. Puedes contactarnos por WhatsApp y te responderemos lo antes posible.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal rd1" style="background:#0A0A0A;overflow:hidden">
+        <div class="faq-q" style="padding:24px 36px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s" onmouseenter="this.style.background='rgba(201,168,76,.04)'" onmouseleave="this.style.background='transparent'">
+          <span style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700">¿Cuánto cuesta un tatuaje?</span>
+          <span class="faq-icon" style="color:#C9A84C;font-size:22px;transition:transform .3s;flex-shrink:0">+</span>
+        </div>
+        <div class="faq-body" style="max-height:0;overflow:hidden;transition:max-height .4s ease">
+          <div style="padding:0 36px 28px;font-size:15px;color:rgba(245,240,232,.55);line-height:1.8;border-left:2px solid #C9A84C;margin:0 36px 28px">
+            El precio depende del tamaño, complejidad y tiempo estimado de cada diseño. Contáctanos con tu idea y te damos un presupuesto personalizado sin compromiso.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal rd2" style="background:#0A0A0A;overflow:hidden">
+        <div class="faq-q" style="padding:24px 36px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s" onmouseenter="this.style.background='rgba(201,168,76,.04)'" onmouseleave="this.style.background='transparent'">
+          <span style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700">¿Puedo traer mi propio diseño?</span>
+          <span class="faq-icon" style="color:#C9A84C;font-size:22px;transition:transform .3s;flex-shrink:0">+</span>
+        </div>
+        <div class="faq-body" style="max-height:0;overflow:hidden;transition:max-height .4s ease">
+          <div style="padding:0 36px 28px;font-size:15px;color:rgba(245,240,232,.55);line-height:1.8;border-left:2px solid #C9A84C;margin:0 36px 28px">
+            Por supuesto. Trabajamos con tus referencias y las adaptamos para conseguir el mejor resultado en tu piel. También podemos diseñar algo completamente a medida para ti.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal rd3" style="background:#0A0A0A;overflow:hidden">
+        <div class="faq-q" style="padding:24px 36px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s" onmouseenter="this.style.background='rgba(201,168,76,.04)'" onmouseleave="this.style.background='transparent'">
+          <span style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700">¿Duele mucho?</span>
+          <span class="faq-icon" style="color:#C9A84C;font-size:22px;transition:transform .3s;flex-shrink:0">+</span>
+        </div>
+        <div class="faq-body" style="max-height:0;overflow:hidden;transition:max-height .4s ease">
+          <div style="padding:0 36px 28px;font-size:15px;color:rgba(245,240,232,.55);line-height:1.8;border-left:2px solid #C9A84C;margin:0 36px 28px">
+            Depende de la zona y de cada persona. En el estudio hacemos todo lo posible para que la experiencia sea cómoda. Si tienes dudas, cuéntanos y te asesoramos.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal rd4" style="background:#0A0A0A;overflow:hidden">
+        <div class="faq-q" style="padding:24px 36px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s" onmouseenter="this.style.background='rgba(201,168,76,.04)'" onmouseleave="this.style.background='transparent'">
+          <span style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700">¿Hacéis retoques?</span>
+          <span class="faq-icon" style="color:#C9A84C;font-size:22px;transition:transform .3s;flex-shrink:0">+</span>
+        </div>
+        <div class="faq-body" style="max-height:0;overflow:hidden;transition:max-height .4s ease">
+          <div style="padding:0 36px 28px;font-size:15px;color:rgba(245,240,232,.55);line-height:1.8;border-left:2px solid #C9A84C;margin:0 36px 28px">
+            Sí. Una vez cicatrizado el tatuaje (mínimo 4 semanas), realizamos una revisión gratuita para asegurarnos de que el resultado es perfecto.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESERVA / CONTACTO -->
+<section id="contacto" class="section-pad" style="padding:120px 48px;background:#0A0A0A;text-align:center">
+  <div style="max-width:700px;margin:0 auto">
+    <div class="reveal" style="display:inline-flex;align-items:center;gap:16px;margin-bottom:24px">
+      <span style="flex:0 0 40px;height:1px;background:#C9A84C;opacity:.5"></span>
+      <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.25em;color:#C9A84C;text-transform:uppercase">Reserva tu cita</span>
+      <span style="flex:0 0 40px;height:1px;background:#C9A84C;opacity:.5"></span>
+    </div>
+    <h2 class="reveal" style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,72px);font-weight:700;line-height:1.05;margin-bottom:28px">
+      ¿Listo para<br><em style="font-style:italic;color:#C9A84C">tu próximo tatuaje?</em>
+    </h2>
+    <p class="reveal" style="font-size:17px;color:rgba(245,240,232,.5);line-height:1.8;margin-bottom:56px;max-width:500px;margin-left:auto;margin-right:auto">
+      Cuéntanos tu idea por WhatsApp. Te respondemos rápido y te asesoramos sin compromiso.
+    </p>
+    <div class="reveal" style="display:flex;flex-direction:column;gap:16px;align-items:center">
+      <a id="wa-cta" href="https://wa.me/34614191350?text=Hola,%20me%20gustaría%20pedir%20información%20sobre%20una%20cita" target="_blank" style="display:inline-flex;align-items:center;gap:14px;background:#C9A84C;color:#0A0A0A;padding:22px 56px;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .2s,transform .2s,box-shadow .2s" onmouseenter="this.style.background='#D4B558';this.style.transform='translateY(-2px)';this.style.boxShadow='0 16px 48px rgba(201,168,76,.35)'" onmouseleave="this.style.background='#C9A84C';this.style.transform='translateY(0)';this.style.boxShadow='none'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.528 5.855L0 24l6.337-1.508A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.67-.52-5.19-1.427l-.37-.22-3.763.896.939-3.668-.242-.378A9.946 9.946 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Escríbenos por WhatsApp
+      </a>
+      <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.15em;color:rgba(245,240,232,.3);text-transform:uppercase">614 19 13 50</span>
+    </div>
+    <div class="reveal" style="margin-top:64px;display:flex;justify-content:center;gap:48px;padding-top:48px;border-top:1px solid rgba(255,255,255,.06)">
+      <div style="text-align:center">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#8A8A8A;text-transform:uppercase;margin-bottom:8px">Horario</div>
+        <div style="font-size:14px;color:rgba(245,240,232,.7)">Lun – Sáb · 11:00 – 20:00</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,.06)"></div>
+      <div style="text-align:center">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#8A8A8A;text-transform:uppercase;margin-bottom:8px">Instagram</div>
+        <a href="https://www.instagram.com/elysium.tattoostudio" target="_blank" style="font-size:14px;color:#C9A84C">@elysium.tattoostudio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UBICACIÓN -->
+<section id="ubicacion" class="section-pad" style="padding:120px 48px;background:#111111">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="split-2" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+      <div>
+        <div class="reveal" style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+          <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.25em;color:#C9A84C;text-transform:uppercase">Ubicación</span>
+          <span style="flex:0 0 48px;height:1px;background:#C9A84C;opacity:.5"></span>
+        </div>
+        <h2 class="reveal" style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,4vw,56px);font-weight:700;line-height:1.1;margin-bottom:40px">
+          Ven a<br><em style="font-style:italic;color:#C9A84C">conocernos.</em>
+        </h2>
+        <div class="reveal" style="display:flex;flex-direction:column;gap:28px">
+          <div style="display:flex;gap:18px;align-items:flex-start">
+            <div style="width:40px;height:40px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#F5F0E8;margin-bottom:4px">Dirección</div>
+              <div style="font-size:14px;color:rgba(245,240,232,.5);line-height:1.6">Avinguda primer de maig 65, bajo<br>Paterna, Valencia</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:18px;align-items:flex-start">
+            <div style="width:40px;height:40px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.03 1.18 2 2 0 012 .02h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#F5F0E8;margin-bottom:4px">WhatsApp</div>
+              <a href="https://wa.me/34614191350" target="_blank" style="font-size:14px;color:#C9A84C">614 19 13 50</a>
+            </div>
+          </div>
+          <div style="display:flex;gap:18px;align-items:flex-start">
+            <div style="width:40px;height:40px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#C9A84C" stroke="none"/></svg>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#F5F0E8;margin-bottom:4px">Instagram</div>
+              <a href="https://www.instagram.com/elysium.tattoostudio" target="_blank" style="font-size:14px;color:#C9A84C">@elysium.tattoostudio</a>
+            </div>
+          </div>
+          <div style="display:flex;gap:18px;align-items:flex-start">
+            <div style="width:40px;height:40px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#F5F0E8;margin-bottom:4px">Horario</div>
+              <div style="font-size:14px;color:rgba(245,240,232,.5);line-height:1.6">Lunes a Sábado<br>11:00 – 20:00 h</div>
+            </div>
+          </div>
+        </div>
+        <a class="reveal" href="https://maps.google.com/?q=Avinguda+primer+de+maig+65+Paterna+Valencia" target="_blank" style="display:inline-flex;align-items:center;gap:10px;margin-top:40px;border:1px solid rgba(201,168,76,.25);color:rgba(245,240,232,.6);padding:14px 28px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;transition:border-color .2s,color .2s" onmouseenter="this.style.borderColor='#C9A84C';this.style.color='#C9A84C'" onmouseleave="this.style.borderColor='rgba(201,168,76,.25)';this.style.color='rgba(245,240,232,.6)'">
+          Abrir en Google Maps →
+        </a>
+      </div>
+      <!-- Map placeholder -->
+      <div class="reveal" style="aspect-ratio:1;background:#161616;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;border:1px solid rgba(201,168,76,.08)">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(201,168,76,.3);text-transform:uppercase">Paterna · Valencia</span>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;color:rgba(201,168,76,.2);text-transform:uppercase">Mapa próximamente</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMIA BANNER -->
+<section style="padding:80px 48px;background:#0A0A0A;border-top:1px solid rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.1)">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap">
+    <div class="reveal">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.25em;color:#C9A84C;text-transform:uppercase;margin-bottom:12px">¿Quieres aprender?</div>
+      <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3vw,40px);font-weight:700;line-height:1.1">
+        ELYSIUM <em style="font-style:italic;color:#C9A84C">Tattoo Academy</em>
+      </h3>
+      <p style="margin-top:12px;font-size:15px;color:rgba(245,240,232,.5);max-width:480px;line-height:1.7">
+        El único curso presencial en Valencia donde pasas de cero a realizar tatuajes reales en piel. El método de Christian, ahora disponible para ti.
+      </p>
+    </div>
+    <a class="reveal" href="uploads/index_5.html" style="display:inline-flex;align-items:center;gap:12px;background:transparent;border:1px solid #C9A84C;color:#C9A84C;padding:18px 40px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;transition:background .2s,color .2s" onmouseenter="this.style.background='#C9A84C';this.style.color='#0A0A0A'" onmouseleave="this.style.background='transparent';this.style.color='#C9A84C'">
+      Ver la Academia →
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding:56px 48px;background:#0A0A0A;border-top:1px solid rgba(255,255,255,.05)">
+  <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:32px">
+    <div>
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;letter-spacing:.15em;color:#C9A84C">
+        ELYSIUM <span style="color:rgba(245,240,232,.4);font-weight:400">Tattoo Studio</span>
+      </div>
+      <div style="margin-top:8px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(245,240,232,.25);text-transform:uppercase">Paterna · Valencia</div>
+    </div>
+    <div style="text-align:center;font-size:12px;color:rgba(245,240,232,.25);line-height:1.8">
+      © 2025 Elysium Tattoo Studio · Todos los derechos reservados
+    </div>
+    <div style="text-align:right;display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+      <a href="https://www.instagram.com/elysium.tattoostudio" target="_blank" style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(245,240,232,.4);transition:color .2s" onmouseenter="this.style.color='#C9A84C'" onmouseleave="this.style.color='rgba(245,240,232,.4)'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @elysium.tattoostudio
+      </a>
+      <a href="https://wa.me/34614191350" target="_blank" style="font-size:13px;color:rgba(245,240,232,.4);transition:color .2s" onmouseenter="this.style.color='#C9A84C'" onmouseleave="this.style.color='rgba(245,240,232,.4)'">614 19 13 50</a>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING CTA -->
+<a id="float-cta" href="https://wa.me/34614191350?text=Hola,%20me%20gustaría%20pedir%20información%20sobre%20una%20cita" target="_blank" style="position:fixed;bottom:32px;right:32px;z-index:200;background:#C9A84C;color:#0A0A0A;padding:14px 28px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 8px 32px rgba(201,168,76,.4);opacity:0;transform:translateY(20px);transition:opacity .4s,transform .4s,background .2s" onmouseenter="this.style.background='#D4B558'" onmouseleave="this.style.background='#C9A84C'">
+  Reservar cita
+</a>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.updateIndicator();
+    this._interval = setInterval(() => this.updateIndicator(), 60000);
+
+    // Nav scroll + progress bar
+    const nav = document.getElementById('nav');
+    const prog = document.getElementById('prog');
+    const onScroll = () => {
+      const scrolled = window.scrollY > 60;
+      nav.style.background = scrolled ? 'rgba(10,10,10,0.96)' : 'transparent';
+      nav.style.backdropFilter = scrolled ? 'blur(20px)' : 'none';
+      nav.style.borderColor = scrolled ? 'rgba(255,255,255,0.05)' : 'transparent';
+      nav.style.padding = scrolled ? '16px 48px' : '24px 48px';
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (prog && total > 0) prog.style.width = (window.scrollY / total * 100) + '%';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Button hovers
+    const addHover = (id, enterFn, leaveFn) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('mouseenter', enterFn);
+      el.addEventListener('mouseleave', leaveFn);
+    };
+    addHover('nav-cta',
+      e => { e.target.style.opacity='.82'; e.target.style.transform='translateY(-2px)'; },
+      e => { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+    );
+    addHover('hero-cta',
+      e => { e.target.style.background='#D4B558'; e.target.style.transform='translateY(-2px)'; e.target.style.boxShadow='0 12px 40px rgba(201,168,76,.35)'; },
+      e => { e.target.style.background='#C9A84C'; e.target.style.transform='translateY(0)'; e.target.style.boxShadow='none'; }
+    );
+    addHover('hero-ghost',
+      e => { e.target.style.borderColor='#C9A84C'; e.target.style.color='#C9A84C'; },
+      e => { e.target.style.borderColor='rgba(245,240,232,.2)'; e.target.style.color='#F5F0E8'; }
+    );
+    // Nav links
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.transition = 'color .2s';
+      a.addEventListener('mouseenter', () => { a.style.color='#C9A84C'; });
+      a.addEventListener('mouseleave', () => { a.style.color='rgba(245,240,232,.5)'; });
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Floating CTA
+    const floatCta = document.getElementById('float-cta');
+    const showFloat = () => {
+      if (!floatCta) return;
+      if (window.scrollY > 600) { floatCta.style.opacity='1'; floatCta.style.transform='translateY(0)'; }
+      else { floatCta.style.opacity='0'; floatCta.style.transform='translateY(20px)'; }
+    };
+    window.addEventListener('scroll', showFloat, { passive: true });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const q = item.querySelector('.faq-q');
+      const body = item.querySelector('.faq-body');
+      const icon = item.querySelector('.faq-icon');
+      if (!q || !body) return;
+      q.addEventListener('click', () => {
+        const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+        document.querySelectorAll('.faq-body').forEach(b => { b.style.maxHeight = '0px'; });
+        document.querySelectorAll('.faq-icon').forEach(i => { i.style.transform = 'rotate(0deg)'; });
+        if (!isOpen) {
+          body.style.maxHeight = body.scrollHeight + 'px';
+          if (icon) icon.style.transform = 'rotate(45deg)';
+        }
+      });
+    });
+
+    this._cleanup = () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('scroll', showFloat); };
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._interval);
+    if (this._cleanup) this._cleanup();
+  }
+
+  updateIndicator() {
+    const dot = document.getElementById('status-dot');
+    const text = document.getElementById('status-text');
+    if (!dot) return;
+    const now = new Date();
+    const day = now.getDay(); // 0=Sun
+    const t = now.getHours() * 100 + now.getMinutes();
+    // Open: Mon–Sat 11:00–20:00
+    const open = day >= 1 && day <= 6 && t >= 1100 && t < 2000;
+    dot.style.background = open ? '#22c55e' : '#ef4444';
+    dot.style.boxShadow = open ? '0 0 8px rgba(34,197,94,.6)' : '0 0 8px rgba(239,68,68,.5)';
+    dot.style.animation = 'pulse 2s infinite';
+    if (text) text.textContent = open ? 'Abierto · Por cita previa' : 'Cerrado · Cita previa';
+  }
+}
+</script>
+</body>
+</html>
